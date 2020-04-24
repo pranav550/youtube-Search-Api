@@ -1,0 +1,28 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <form class="example-form"  #myForm="ngForm">
+            <mat-form-field class="example-full-width">
+              <input matInput   [matAutocomplete]="auto"  placeholder="YouTube Search" name="search" id="search" [(ngModel)]="search" (ngModelChange)="selectedSearch(search)">
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let option of youtubeData " [value]="option.snippet.channelTitle">
+                  {{option.snippet.channelTitle}}
+                </mat-option>
+              </mat-autocomplete> 
+            </mat-form-field>
+          </form>
+          <!-- <h4 class="loginUser">User</h4> -->
+          <!-- <mat-form-field>
+           
+            <mat-select>
+              <mat-option *ngFor="let food of foods" [value]="food.value">
+                {{food.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field> -->
+    </mat-toolbar-row>
+    
+</mat-toolbar>
+
+<app-search-result [youtubeData]="youtubeData"></app-search-result>
+
+

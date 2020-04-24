@@ -1,0 +1,16 @@
+ .wrapper{
+    display: flex; 
+    align-items: center; 
+    justify-content:center;
+  }
+
+  .wrapper-header{
+    font-family: montserrat
+  }
+
+  .wrapper-button{
+    height: 10rem; 
+    display: flex; 
+    align-items: center; 
+    justify-content:center;
+  }
