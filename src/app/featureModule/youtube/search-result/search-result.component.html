@@ -4,30 +4,26 @@
     <div class="userImage">
       <img src="">
     </div>
-
+   
     <mat-card class="example-card" *ngFor="let youtube of youtubeData">
-      <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>Suggestion</mat-card-title>
-      </mat-card-header>
       <img [src]="youtube.snippet.thumbnails.medium.url" width="276px" height="179px"
         (click)="selectVedio(youtube.id.videoId)">
+        <mat-card-content>
+          <p>{{youtube.snippet.description}}</p>
+        </mat-card-content>
     </mat-card>
-
-
   </div>
-  <div class="right-sidebar">
 
-    <div class="y-player">
-      <ng-container *ngIf="videoId">
+  <div class="right-sidebar">
+    <div class="y-player;" >
+      <ng-container *ngIf="videoId && loadingvideoId==false; else vId">
         <youtube-player [videoId]="videoId" [width]=914 [height]=300 (ready)="savePlayer($event)"
           (change)="onStateChange($event)" [playerVars]="playerVars">
         </youtube-player>
       </ng-container>
-
     </div>
 
-    <ng-template #vId *ngIf="clientId">
+    <ng-template #vId >
       <youtube-player [videoId]="videoId" [width]=914 [height]=300 (ready)="savePlayer($event)"
         (change)="onStateChange($event)" [playerVars]="playerVars">
       </youtube-player>
@@ -46,12 +42,11 @@
 
       <div class="favourite-section">
         <mat-card class="example-card" *ngFor="let youtube of youtubeData">
-          <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title>Favouite</mat-card-title>
-          </mat-card-header>
           <img [src]="youtube.snippet.thumbnails.medium.url" width="276px" height="179px"
             (click)="selectVedio(youtube.id.videoId)">
+            <mat-card-content>
+              <p>{{youtube.snippet.description}}</p>
+            </mat-card-content>
           </mat-card>
       </div>
 
