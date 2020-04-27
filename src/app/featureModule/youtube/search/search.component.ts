@@ -22,9 +22,7 @@ export class SearchComponent implements OnInit {
   results: string = "2";
   filteredOptions: any = [];
   channelId: string;
-  // selected:string;
-  // users:any=[];
-  // UserForm: FormGroup;
+  
   constructor(private mock: MockService,
     private authService: AuthService,
     private router: Router
@@ -57,7 +55,7 @@ export class SearchComponent implements OnInit {
   // function for searching
   public selectedSearch(search) {
     this.search = search
-    if (this.search.length > 5) {
+    if (this.search.length > 4) {
       setTimeout(() => {
         this.apiUrl = `maxResults=${this.results}&q=${this.search}&type=video&key=${Constants.key}`
         this.YouTubeList()
