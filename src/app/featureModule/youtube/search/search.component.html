@@ -10,15 +10,12 @@
               </mat-autocomplete> 
             </mat-form-field>
           </form>
-          <!-- <h4 class="loginUser">User</h4> -->
-          <!-- <mat-form-field>
-           
-            <mat-select>
-              <mat-option *ngFor="let food of foods" [value]="food.value">
-                {{food.viewValue}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field> -->
+          <div class="userInformation" >
+          <h4 class="loginUser" *ngIf="user">{{ user.name }}</h4>
+          <h4 class="loginUser" (click)="signOut()" *ngIf="user">Logout</h4>
+          </div>
+        
+
     </mat-toolbar-row>
     
 </mat-toolbar>

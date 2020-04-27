@@ -5,31 +5,47 @@ import { delay, debounceTime } from 'rxjs/operators';
 import { Constants } from "../../../utils/constants";
 import { AuthService } from "angularx-social-login";
 import { SocialUser } from "angularx-social-login";
-
+import { Router } from "@angular/router";
+// import { FormBuilder, FormGroup,FormControl,Validators } from '@angular/forms';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-  // private user: SocialUser;
-  // private loggedIn: boolean;
+  public user: SocialUser;
+  private loggedIn: boolean;
   youtubeData: Videos[];
   search: string;
   options: string[]
   apiUrl: string
   results: string = "2";
   filteredOptions: any = [];
-  channelId: string
-  constructor(private mock: MockService, private authService: AuthService) { }
+  channelId: string;
+  // selected:string;
+  // users:any=[];
+  // UserForm: FormGroup;
+  constructor(private mock: MockService,
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.loginUser()
+  }
+
+  // function for login user
+  public loginUser() {
+    this.authService.authState.subscribe((user) => {
+      this.user = user;
+      this.loggedIn = (user != null);
+    });
+  }
 
   // function for listing of video
   public YouTubeList() {
     this.mock.getYoutubeApi(this.apiUrl).pipe(debounceTime(3000))
       .subscribe(data => {
-        console.log(data)
         data.items.map(value => {
           this.channelId = value.snippet.channelId
           this.mock.selectVideoId.next(this.channelId)
@@ -37,6 +53,7 @@ export class SearchComponent implements OnInit {
         this.youtubeData = data.items
       })
   }
+
   // function for searching
   public selectedSearch(search) {
     this.search = search
@@ -46,6 +63,13 @@ export class SearchComponent implements OnInit {
         this.YouTubeList()
       }, 3000)
     }
+  }
+  
+  // function for signout the user 
+  public signOut(): void {
+    this.authService.signOut();
+    localStorage.removeItem('UserToken');
+    this.router.navigate(['login'])
   }
 
 

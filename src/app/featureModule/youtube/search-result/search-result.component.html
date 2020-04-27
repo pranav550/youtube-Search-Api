@@ -1,8 +1,8 @@
 <div class="container">
   <div class="left-sidebar">
 
-    <div class="userImage">
-      <img src="">
+    <div class="userThumb" *ngIf=user>
+      <img src="{{ user.photoUrl }}" class="userImage">
     </div>
    
     <mat-card class="example-card" *ngFor="let youtube of youtubeData">
@@ -17,14 +17,14 @@
   <div class="right-sidebar">
     <div class="y-player;" >
       <ng-container *ngIf="videoId && loadingvideoId==false; else vId">
-        <youtube-player [videoId]="videoId" [width]=914 [height]=300 (ready)="savePlayer($event)"
+        <youtube-player [videoId]="videoId" [width]=920 [height]=300 (ready)="savePlayer($event)"
           (change)="onStateChange($event)" [playerVars]="playerVars">
         </youtube-player>
       </ng-container>
     </div>
 
     <ng-template #vId >
-      <youtube-player [videoId]="videoId" [width]=914 [height]=300 (ready)="savePlayer($event)"
+      <youtube-player [videoId]="videoId" [width]=920 [height]=300 (ready)="savePlayer($event)"
         (change)="onStateChange($event)" [playerVars]="playerVars">
       </youtube-player>
     </ng-template>

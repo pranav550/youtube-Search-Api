@@ -8,18 +8,29 @@ import { GoogleLoginProvider } from "angularx-social-login";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(private router: Router,
+    private authService: AuthService) { }
 
   ngOnInit(): void { }
-
+  // function for sign with google
   public signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
-    this.router.navigate(['youtube/search'])
+    this.checkUserLogin()
   }
-
-  public signOut(): void {
-    this.authService.signOut();
+  // check userlogin or not
+  public checkUserLogin() {
+    this.authService.authState.subscribe((user) => {
+      if (user) {
+        localStorage.setItem('UserToken', JSON.stringify(user.authToken));
+        if (JSON.parse(localStorage.getItem('UserToken'))) {
+          this.router.navigate(['youtube/search'])
+        }
+      }
+      else {
+        localStorage.setItem('UserToken', null);
+        JSON.parse(localStorage.getItem('UserToken'));
+      }
+    });
   }
 
 }

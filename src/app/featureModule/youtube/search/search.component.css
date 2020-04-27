@@ -25,3 +25,8 @@
     
     /* margin-right: auto; */
   }
+
+  .userInformation{
+    display: flex;
+  flex-direction: column;
+  }

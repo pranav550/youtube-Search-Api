@@ -13,7 +13,7 @@ import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCardModule} from '@angular/material/card';
-
+import {ReactiveFormsModule} from "@angular/forms";
 const routes: Routes = [
   
   {path:'', children:[
@@ -37,7 +37,8 @@ const routes: Routes = [
     NgxYoutubePlayerModule.forRoot(),
     MatButtonModule,
     MatSelectModule,
-    MatCardModule
+    MatCardModule,
+    ReactiveFormsModule
   ]
 })
 export class YoutubeModule { }
