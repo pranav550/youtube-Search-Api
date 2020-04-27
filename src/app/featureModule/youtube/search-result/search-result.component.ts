@@ -11,7 +11,7 @@ import { SocialUser } from "angularx-social-login";
 export class SearchResultComponent implements OnInit {
   public user: SocialUser;
   private loggedIn: boolean;
-  @Input() youtubeData:Videos;
+  @Input() youtubeData: Videos;
   playerVars = {
     cc_lang_pref: 'en'
   };
@@ -23,17 +23,43 @@ export class SearchResultComponent implements OnInit {
   constructor(private mock: MockService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.mock.getSelectedVideo.subscribe(resp => {
-      this.clientId = resp
-    })
-    this.authService.authState.subscribe((user) => {
-      this.user = user;
-      this.loggedIn = (user != null);
-    });
+    this.checkClientId()
+    this.userImage()
+  }
+  // function for check the client Id
+ public checkClientId():void {
+    try {
+      this.mock.getSelectedVideo.subscribe(resp => {
+        if (resp) {
+          this.clientId = resp
+        }
+        else {
+          this.clientId = null
+        }
+
+      })
+    }
+    catch (excep) { }
+  }
+  // function for login user image
+ public userImage():void {
+    try {
+      this.authService.authState.subscribe((user) => {
+        if (user) {
+          this.user = user;
+          this.loggedIn = (user != null);
+        }
+        else {
+          this.loggedIn = (user = null);
+        }
+
+      });
+    }
+    catch (excep) { }
   }
 
   // fuction for select videoid
-  public selectVedio(vedioId) {
+  public selectVedio(vedioId: string):void {
     this.videoId = ""
     this.loadingvideoId = true
     setTimeout(() => {

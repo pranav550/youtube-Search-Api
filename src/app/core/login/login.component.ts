@@ -18,19 +18,22 @@ export class LoginComponent implements OnInit {
     this.checkUserLogin()
   }
   // check userlogin or not
-  public checkUserLogin() {
-    this.authService.authState.subscribe((user) => {
-      if (user) {
-        localStorage.setItem('UserToken', JSON.stringify(user.authToken));
-        if (JSON.parse(localStorage.getItem('UserToken'))) {
-          this.router.navigate(['youtube/search'])
+  public checkUserLogin():void {
+    try {
+      this.authService.authState.subscribe((user) => {
+        if (user) {
+          localStorage.setItem('UserToken', JSON.stringify(user.authToken));
+          if (JSON.parse(localStorage.getItem('UserToken'))) {
+            this.router.navigate(['youtube/search'])
+          }
         }
-      }
-      else {
-        localStorage.setItem('UserToken', null);
-        JSON.parse(localStorage.getItem('UserToken'));
-      }
-    });
+        else {
+          localStorage.setItem('UserToken', null);
+          JSON.parse(localStorage.getItem('UserToken'));
+        }
+      });
+    }
+    catch (excep) { }
   }
 
 }
